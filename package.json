@@ -1,7 +1,7 @@
 {
   "name": "markdown-it-link-target",
   "version": "1.0.0",
-  "description": "A markdown-it plugin to make all links open in a new window",
+  "description": "A markdown-it plugin to configure the target attribute for links",
   "main": "index.js",
   "scripts": {
     "build": "node tasks/build.js && npm run minify",
