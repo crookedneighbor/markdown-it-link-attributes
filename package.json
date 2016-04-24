@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-link-target",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A markdown-it plugin to configure the target attribute for links",
   "main": "index.js",
   "scripts": {
