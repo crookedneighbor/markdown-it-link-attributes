@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-link-target",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A markdown-it plugin to make all links open in a new window",
   "main": "index.js",
   "scripts": {
