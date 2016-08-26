@@ -1,42 +1,50 @@
-# markdown-it-link-target
+# markdown-it-link-attributes
 
-> Link target plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
+> Link attributes plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
 
 ## Install
 
 node.js, browser:
 
 ```bash
-npm install markdown-it-link-target --save
-bower install markdown-it-link-target --save
+npm install markdown-it-link-attributes --save
+bower install markdown-it-link-attributes --save
 ```
 
 ## Use
 
 ```js
 var md = require('markdown-it')()
-var milt = require('markdown-it-link-target')
+var mila = require('markdown-it-link-attributes')
 ```
 
 ```js
-// Basic Use
-md.use(milt)
-
-var html = md.render('![link](https://google.com)')
-html // <p><a href="https://google.com" target="_blank">link</a></p>
-```
-
-```js
-// With Custom Configuration
-md.use(milt, {
-  target: '_top',
+md.use(mila, {
+  target: '_blank',
+  rel: 'noopener'
 })
 
-var html = md.render('![link](https://google.com)')
-html // <p><a href="https://google.com" target="_top">link</a></p>
+var html = md.render('[link](https://google.com)')
+html // <p><a href="https://google.com" target="_blank" rel="noopener">link</a></p>
 ```
 
-_Differences in browser._ If you load script directly into the page, without a package system, the module will add itself globally as `window.markdownitLinkTarget`.
+If the `linkify` optoon is set to `true` on `markdown-it`, then the attributes will be applied to plain links as well.
+
+```js
+var md = require('markdown-it')({
+  linkify: true
+})
+
+md.use(mila, {
+  target: '_blank',
+  rel: 'noopener'
+})
+
+var html = md.render('foo https://google.com bar')
+html // <p>foo <a href="https://google.com" target="_blank" rel="noopener">https://google.com</a> bar</p>
+```
+
+_Differences in browser._ If you load script directly into the page, without a package system, the module will add itself globally as `window.markdownitLinkAttributes`.
 
 
 ## License

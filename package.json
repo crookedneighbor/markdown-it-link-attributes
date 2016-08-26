@@ -1,17 +1,17 @@
 {
-  "name": "markdown-it-link-target",
-  "version": "1.0.1",
-  "description": "A markdown-it plugin to configure the target attribute for links",
+  "name": "markdown-it-link-attributes",
+  "version": "1.0.0",
+  "description": "A markdown-it plugin to configure the attributes for links",
   "main": "index.js",
   "scripts": {
     "build": "node tasks/build.js && npm run minify",
-    "minify": "uglifyjs dist/markdown-it-link-target.js > dist/markdown-it-link-target.min.js",
+    "minify": "uglifyjs dist/markdown-it-link-attributes.js > dist/markdown-it-link-attributes.min.js",
     "lint": "standard | snazzy",
     "test": "npm run lint && mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crookedneighbor/markdown-it-link-target"
+    "url": "git+https://github.com/crookedneighbor/markdown-it-link-attributes"
   },
   "keywords": [
     "markdown",
@@ -21,9 +21,9 @@
   "author": "Blade Barringer <blade@crookedneighbor.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/crookedneighbor/markdown-it-link-target"
+    "url": "https://github.com/crookedneighbor/markdown-it-link-attributes"
   },
-  "homepage": "https://github.com/crookedneighbor/markdown-it-link-target",
+  "homepage": "https://github.com/crookedneighbor/markdown-it-link-attributes",
   "devDependencies": {
     "browserify": "^13.0.0",
     "chai": "^3.5.0",

@@ -29,7 +29,7 @@ distStream.on('error', function (err) {
 })
 
 var b = browserify({
-  standalone: 'markdownit-link-target'
+  standalone: 'markdownit-link-attributes'
 })
 
 b.add('./index.js')

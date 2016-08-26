@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title>Markdown-It Link Target Plugin</title>
+    <title>Markdown-It Link Attributes Plugin</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/6.0.1/markdown-it.min.js"></script>
-    <script src="../dist/markdown-it-link-target.min.js"></script>
+    <script src="../dist/markdown-it-link-attributes.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <style>
       body {
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="ui container">
-      <h1>Markdown-It Link Target</h1>
+      <h1>Markdown-It Link Attributes</h1>
 
       <h3>Default Behavior (Without Plugin)</h3>
 
@@ -42,29 +42,16 @@
         <div class="ui segment result"></div>
       </div>
 
-      <h3>Plugin Without Additional Options</h3>
+      <h3>Plugin With Configured Attributes</h3>
 
-      <div id="default-plugin-example" class="ui horizontal segments">
-        <pre class="ui segment"><code class="js">md.render('foo [link](https://google.com) bar')
-md.use(markdownitLinkTarget)</code></pre>
+      <div id="attributes-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.use(markdownitLinkAttributes, {
+  target: '_blank'
+})
+md.render('foo [link](https://google.com) bar')</code></pre>
 
         <pre class="ui segment code-html"><code class="html">&lt;p&gt;
   foo &lt;a href="https://google.com" target="_blank"&gt;link&lt;/a&gt;
-&lt;/p&gt;</code></pre>
-
-        <div class="ui segment result"></div>
-      </div>
-
-      <h3>Plugin With Configured Target</h3>
-
-      <div id="target-plugin-example" class="ui horizontal segments">
-        <pre class="ui segment"><code class="js">md.render('foo [link](https://google.com) bar')
-md.use(markdownitLinkTarget, {
-  target: '_top'
-})</code></pre>
-
-        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
-  foo &lt;a href="https://google.com" target="_top"&gt;link&lt;/a&gt;
 &lt;/p&gt;</code></pre>
 
         <div class="ui segment result"></div>
@@ -79,7 +66,7 @@ md.use(markdownitLinkTarget, {
         var result = document.querySelector('#' + id + ' .result')
 
         if (config) {
-          md.use(window.markdownitLinkTarget, config)
+          md.use(window.markdownitLinkAttributes, config)
         }
 
         var html = md.render(link)
@@ -89,12 +76,9 @@ md.use(markdownitLinkTarget, {
       [{
         id: 'no-plugin-example'
       }, {
-        id: 'default-plugin-example',
-        config: {}
-      }, {
-        id: 'target-plugin-example',
+        id: 'attributes-plugin-example',
         config: {
-          target: '_top'
+          target: '_blank'
         }
       }].forEach(function (set) {
         renderMarkdown(set.id, set.config)
