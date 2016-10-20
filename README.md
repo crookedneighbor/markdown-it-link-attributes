@@ -46,6 +46,9 @@ html // <p>foo <a href="https://google.com" target="_blank" rel="noopener">https
 
 _Differences in browser._ If you load script directly into the page, without a package system, the module will add itself globally as `window.markdownitLinkAttributes`.
 
+## Testing
+
+This plugin is tested against markdown-it @ 6,7,8 and latest
 
 ## License
 
