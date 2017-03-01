@@ -1,5 +1,7 @@
 # markdown-it-link-attributes
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/crookedneighbor/markdown-it-link-attributes.svg)](https://greenkeeper.io/)
+
 > Link attributes plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
 
 ## Install
