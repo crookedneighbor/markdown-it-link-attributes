@@ -33,7 +33,7 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "snazzy": "^6.0.0",
-    "standard": "^8.1.0",
+    "standard": "^9.0.0",
     "uglify-js": "^2.6.2"
   },
   "standard": {
