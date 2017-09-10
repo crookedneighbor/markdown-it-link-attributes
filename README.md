@@ -28,7 +28,7 @@ var html = md.render('[link](https://google.com)')
 html // <p><a href="https://google.com" target="_blank" rel="noopener">link</a></p>
 ```
 
-If the `linkify` optoon is set to `true` on `markdown-it`, then the attributes will be applied to plain links as well.
+If the `linkify` option is set to `true` on `markdown-it`, then the attributes will be applied to plain links as well.
 
 ```js
 var md = require('markdown-it')({
