@@ -70,6 +70,7 @@ describe('markdown-it-link-attributes', function () {
 
     this.md.render('[link](https://google.com)')
 
+    // eslint-disable-next-line no-unused-expressions
     expect(spy).to.be.calledOnce
   })
 
@@ -79,6 +80,7 @@ describe('markdown-it-link-attributes', function () {
 
     this.md.render('[link](https://google.com)')
 
+    // eslint-disable-next-line no-unused-expressions
     expect(spy).to.be.calledOnce
   })
 })
