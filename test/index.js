@@ -70,8 +70,7 @@ describe('markdown-it-link-attributes', function () {
 
     this.md.render('[link](https://google.com)')
 
-    // eslint-disable-next-line no-unused-expressions
-    expect(spy).to.be.calledOnce
+    expect(spy).to.be.calledOnce // eslint-disable-line no-unused-expressions
   })
 
   it('calls default render if link_open rule is not defined', function () {
@@ -80,7 +79,6 @@ describe('markdown-it-link-attributes', function () {
 
     this.md.render('[link](https://google.com)')
 
-    // eslint-disable-next-line no-unused-expressions
-    expect(spy).to.be.calledOnce
+    expect(spy).to.be.calledOnce // eslint-disable-line no-unused-expressions
   })
 })
