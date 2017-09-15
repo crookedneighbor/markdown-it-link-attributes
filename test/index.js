@@ -33,6 +33,33 @@ describe('markdown-it-link-attributes', function () {
     expect(result).to.contain('<a href="https://google.com" target="_blank" rel="noopener" foo="bar">link</a>')
   })
 
+  it('allows different rules on specific href', function () {
+    this.md.use(linkAttributes, [{
+      pattern: /\bgoogle.com\b/, // External href in http(s) protocol
+      target: '_blank',
+      rel: 'noopener'
+    }, {
+      ignoreRelative: true, // Catch other absolute hrefs
+      rel: 'noreferrer'
+    }])
+
+    // Rules to specific website
+    var result = this.md.render('[link](https://google.com)')
+    expect(result).to.contain('<a href="https://google.com" target="_blank" rel="noopener">link</a>')
+
+    // Other website
+    result = this.md.render('[link](https://github.com/crookedneighbor/markdown-it-link-attributes)')
+    expect(result).to.contain('<a href="https://github.com/crookedneighbor/markdown-it-link-attributes" rel="noreferrer">link</a>')
+
+    // Relative page
+    result = this.md.render('[link](/page/relative-to-website)')
+    expect(result).to.contain('<a href="/page/relative-to-website">link</a>')
+
+    // Anchors should work, too
+    result = this.md.render('[link](#anchor_link)')
+    expect(result).to.contain('<a href="#anchor_link">link</a>')
+  })
+
   it('retains the original attr of a previous plugin that alters the attrs', function () {
     this.md.use(linkAttributes, {
       keep: 'keep',
