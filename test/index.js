@@ -33,31 +33,39 @@ describe('markdown-it-link-attributes', function () {
     expect(result).to.contain('<a href="https://google.com" target="_blank" rel="noopener" foo="bar">link</a>')
   })
 
-  it('allows different rules on specific href', function () {
-    this.md.use(linkAttributes, [{
-      pattern: /\bgoogle.com\b/, // External href in http(s) protocol
+  it('takes pattern option and only apply attrs if pattern matched', function () {
+    this.md.use(linkAttributes, {
+      pattern: /^https?:\/\//,
       target: '_blank',
       rel: 'noopener'
-    }, {
-      ignoreRelative: true, // Catch other absolute hrefs
-      rel: 'noreferrer'
-    }])
+    })
 
-    // Rules to specific website
     var result = this.md.render('[link](https://google.com)')
     expect(result).to.contain('<a href="https://google.com" target="_blank" rel="noopener">link</a>')
 
-    // Other website
-    result = this.md.render('[link](https://github.com/crookedneighbor/markdown-it-link-attributes)')
-    expect(result).to.contain('<a href="https://github.com/crookedneighbor/markdown-it-link-attributes" rel="noreferrer">link</a>')
+    result = this.md.render('[link](#anchor)')
+    expect(result).to.contain('<a href="#anchor">link</a>')
+  })
 
-    // Relative page
-    result = this.md.render('[link](/page/relative-to-website)')
-    expect(result).to.contain('<a href="/page/relative-to-website">link</a>')
+  it('allows multiple rules', function () {
+    this.md.use(linkAttributes, [{
+      pattern: /^https:/,
+      class: 'has-text-uppercase'
+    }, {
+      pattern: /^#/,
+      class: 'is-blue'
+    }, {
+      class: 'is-red'
+    }])
 
-    // Anchors should work, too
-    result = this.md.render('[link](#anchor_link)')
-    expect(result).to.contain('<a href="#anchor_link">link</a>')
+    var result = this.md.render('[Google](https://www.google.com)')
+    expect(result).to.contain('<a href="https://www.google.com" class="has-text-uppercase">Google</a>')
+
+    result = this.md.render('[Go top](#top)')
+    expect(result).to.contain('<a href="#top" class="is-blue">Go top</a>')
+
+    result = this.md.render('[About](/page/about)')
+    expect(result).to.contain('<a href="/page/about" class="is-red">About</a>')
   })
 
   it('retains the original attr of a previous plugin that alters the attrs', function () {
