@@ -2,21 +2,22 @@
 
 // Adapted from https://github.com/markdown-it/markdown-it/blob/fbc6b0fed563ba7c00557ab638fd19752f8e759d/docs/architecture.md
 
-var optionKeys = ['ignoreRelative', 'pattern']
-var absoluteUrlPattern = /^([a-z]+:)?\/\//
+var OPTION_KEYS = ['pattern']
 
 function markdownitLinkAttributes (md, _config) {
-  // For downward-compatibility, pass in flat options
-  var configs = (Array.isArray(_config) ? _config : [_config || {}]).map(function (config) {
+  var configs = Array.isArray(_config) ? _config : [_config || {}]
+
+  configs = configs.map(function (config) {
     var result = { attrs: {} }
 
     Object.keys(config).forEach(function (key) {
-      if (optionKeys.indexOf(key) > -1) {
+      if (OPTION_KEYS.indexOf(key) > -1) {
         result[key] = config[key]
       } else {
         result.attrs[key] = config[key]
       }
     })
+
     return result
   })
 
@@ -26,16 +27,15 @@ function markdownitLinkAttributes (md, _config) {
 
   md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
     var href = tokens[idx].attrGet('href')
+    var config = null
 
-    var config = configs.find(function (conf) {
-      if (conf.pattern) {
-        return conf.pattern.test(href) // match custom pattern
-      } else if (conf.ignoreRelative) {
-        return absoluteUrlPattern.test(href)
-      } else {
-        return true
+    for (var i = 0; i < configs.length; ++i) {
+      var conf = configs[i]
+      if (!conf.pattern || (conf.pattern && conf.pattern.test(href))) {
+        config = conf
+        break
       }
-    })
+    }
 
     if (config) {
       Object.keys(config.attrs).forEach(function (attr) {
