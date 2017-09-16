@@ -16,16 +16,55 @@ bower install markdown-it-link-attributes --save
 ```js
 var md = require('markdown-it')()
 var mila = require('markdown-it-link-attributes')
+
+const options = {
+  pattern: RegExp, // Default: undefined; Allow to all links
+  ...attrs // Attributes to assign to the links
+}
+
+md.use(mila, options)
+md.use(mila, [ ...options ]) // If you have several rules to apply
 ```
 
 ```js
 md.use(mila, {
+  pattern: /^https?:/,
   target: '_blank',
-  rel: 'noopener'
+  rel: 'noopener',
 })
 
 var html = md.render('[link](https://google.com)')
 html // <p><a href="https://google.com" target="_blank" rel="noopener">link</a></p>
+
+html = md.render('[Go Top](#top)')
+html // <p><a href="#top">link</a></p>
+```
+
+You can also apply different attributes belongs to href pattern.
+
+```js
+md.use(mila, [{
+  pattern: /^https?:/,
+  target: '_blank',
+  rel: 'noopener'
+}, {
+  pattern: /^\/about\/\w+/
+  rel: 'author'
+}, {
+  'data-is-other': true
+}])
+
+md.render('[Can I Use ?](https://caniuse.com/)')
+// <p><a href="https://caniuse.com/" target="_blank" rel="noopener">Can I Use ?</a></p>
+
+md.render('[About me](/about/steve)')
+// <p><a href="/about/steve" rel="author">About me</a></p>
+
+md.render('[Reference](#reference)')
+// <p><a href="#reference" data-is-other="true">Reference</a></p>
+
+md.render('[Submit](?page=docs)')
+// <p><a href="?page=docs" data-is-other="true">Submit</a></p>
 ```
 
 If the `linkify` option is set to `true` on `markdown-it`, then the attributes will be applied to plain links as well.
