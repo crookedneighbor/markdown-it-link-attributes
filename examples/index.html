@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/6.0.1/markdown-it.min.js"></script>
-    <script src="../dist/markdown-it-link-attributes.min.js"></script>
+    <script src="../dist/markdown-it-link-attributes.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <style>
       body {
@@ -29,60 +29,102 @@
   <body>
     <div class="ui container">
       <h1>Markdown-It Link Attributes</h1>
-
-      <h3>Default Behavior (Without Plugin)</h3>
-
-      <div id="no-plugin-example" class="ui horizontal segments">
-        <pre class="ui segment"><code class="js">md.render('foo [link](https://google.com) bar')</code></pre>
-
-        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
-  foo &lt;a href="https://google.com"&gt;link&lt;/a&gt;
-&lt;/p&gt;</code></pre>
-
-        <div class="ui segment result"></div>
-      </div>
-
-      <h3>Plugin With Configured Attributes</h3>
-
-      <div id="attributes-plugin-example" class="ui horizontal segments">
-        <pre class="ui segment"><code class="js">md.use(markdownitLinkAttributes, {
-  target: '_blank'
-})
-md.render('foo [link](https://google.com) bar')</code></pre>
-
-        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
-  foo &lt;a href="https://google.com" target="_blank"&gt;link&lt;/a&gt;
-&lt;/p&gt;</code></pre>
-
-        <div class="ui segment result"></div>
-      </div>
     </div>
 
     <script>
-      var link = 'foo [link](https://google.com) bar'
+      var container = document.querySelector('.ui.container')
 
-      function renderMarkdown (id, config) {
+      function getJsCodeBlob (config, pieces) {
+        var jsCodeBlob = ''
+
+        if (config) {
+          var clonedConfig = JSON.parse(JSON.stringify(config))
+
+          if (config.pattern) {
+            clonedConfig.pattern = config.pattern.toString()
+          } else if (Array.isArray(config)) {
+            config.forEach(function (c, index) {
+              if (c.pattern) {
+                clonedConfig[index].pattern = c.pattern.toString().replace(/\\\//g, '&bsol;&sol;')
+              }
+            })
+          }
+
+        jsCodeBlob = 'md.use(markdownitLinkAttributes, ' +
+          JSON.stringify(clonedConfig, null, 2)
+            .replace(/"(\w*)":/g, '$1:')
+            .replace(/"/g, "'")
+            .replace(/pattern: '(.*)',/g, 'pattern: $1') +
+          ')\n'
+        }
+
+        return jsCodeBlob + pieces.map(function (piece) {
+          return 'md.render(\'' + piece + '\')\n'
+        }).join('\n')
+      }
+
+      function renderExample (set) {
+        var config = set.config
         var md = window.markdownit()
-        var result = document.querySelector('#' + id + ' .result')
+        var section = document.createElement('div')
+        var pieces = set.source.split('|')
+        var source = pieces.join('\n\n')
+        var parsedMarkdown
+
+        section.id = set.id
 
         if (config) {
           md.use(window.markdownitLinkAttributes, config)
         }
 
-        var html = md.render(link)
-        result.innerHTML = html
+        parsedMarkdown = md.render(source)
+
+        section.innerHTML = '<h3>' + set.title + '</h3>' +
+          '<div class="ui horizontal segments">' +
+            '<pre class="ui segment"><code class="js">' +
+              getJsCodeBlob(config, pieces) +
+            '</code></pre>' +
+            '<pre class="ui segment code-html"><code class="html">' +
+              parsedMarkdown.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+            '</code></pre>' +
+            '<div class="ui segment result">' +
+              parsedMarkdown +
+            '</div>' +
+          '</div>'
+
+        container.appendChild(section)
       }
 
       [{
-        id: 'no-plugin-example'
+        id: 'no-plugin-example',
+        title: 'Default Behavior (Without Plugin)',
+        source: 'a [link](https://google.com) without modification'
       }, {
         id: 'attributes-plugin-example',
+        title: 'Plugin With Configured Attributes',
+        source: 'a [link](https://google.com) with `target="_blank"` added to it',
         config: {
-          target: '_blank'
+          attrs: {
+            target: '_blank'
+          }
         }
-      }].forEach(function (set) {
-        renderMarkdown(set.id, set.config)
-      })
+      }, {
+        id: 'attributes-plugin-with-multiple-configs-example',
+        title: 'Plugin With Multiple Configurations',
+        source: 'an external [link](https://google.com)|and an other [link](example)',
+        config: [{
+          pattern: /^https?:\/\//,
+          attrs: {
+            className: 'external-link',
+            target: '_blank',
+            rel: 'noopener'
+          }
+        }, {
+          attrs: {
+            className: 'other-link'
+          }
+        }]
+      }].forEach(renderExample)
     </script>
   </body>
 </html>
