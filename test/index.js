@@ -14,7 +14,11 @@ describe('markdown-it-link-attributes', function () {
   })
 
   it('adds attribues to link', function () {
-    this.md.use(linkAttributes, { target: '_blank' })
+    this.md.use(linkAttributes, {
+      attrs: {
+        target: '_blank'
+      }
+    })
 
     var result = this.md.render('[link](https://google.com)')
 
@@ -23,9 +27,11 @@ describe('markdown-it-link-attributes', function () {
 
   it('can pass in multiple attributes', function () {
     this.md.use(linkAttributes, {
-      target: '_blank',
-      rel: 'noopener',
-      foo: 'bar'
+      attrs: {
+        target: '_blank',
+        rel: 'noopener',
+        foo: 'bar'
+      }
     })
 
     var result = this.md.render('[link](https://google.com)')
@@ -36,8 +42,10 @@ describe('markdown-it-link-attributes', function () {
   it('takes pattern option and only apply attrs if pattern matched', function () {
     this.md.use(linkAttributes, {
       pattern: /^https?:\/\//,
-      target: '_blank',
-      rel: 'noopener'
+      attrs: {
+        target: '_blank',
+        rel: 'noopener'
+      }
     })
 
     var result = this.md.render('[link](https://google.com)')
@@ -50,28 +58,48 @@ describe('markdown-it-link-attributes', function () {
   it('allows multiple rules', function () {
     this.md.use(linkAttributes, [{
       pattern: /^https:/,
-      class: 'has-text-uppercase'
+      attrs: {
+        class: 'has-text-uppercase'
+      }
     }, {
       pattern: /^#/,
-      class: 'is-blue'
+      attrs: {
+        class: 'is-blue'
+      }
     }, {
-      class: 'is-red'
+      attrs: {
+        class: 'is-red'
+      }
     }])
 
     var result = this.md.render('[Google](https://www.google.com)')
     expect(result).to.contain('<a href="https://www.google.com" class="has-text-uppercase">Google</a>')
 
-    result = this.md.render('[Go top](#top)')
-    expect(result).to.contain('<a href="#top" class="is-blue">Go top</a>')
+    result = this.md.render('[Go to top](#top)')
+    expect(result).to.contain('<a href="#top" class="is-blue">Go to top</a>')
 
     result = this.md.render('[About](/page/about)')
     expect(result).to.contain('<a href="/page/about" class="is-red">About</a>')
   })
 
+  it('treats className as if it is class', function () {
+    this.md.use(linkAttributes, {
+      attrs: {
+        className: 'foo'
+      }
+    })
+
+    var result = this.md.render('[Google](https://www.google.com)')
+
+    expect(result).to.contain('class="foo"')
+  })
+
   it('retains the original attr of a previous plugin that alters the attrs', function () {
     this.md.use(linkAttributes, {
-      keep: 'keep',
-      overwrite: 'original'
+      attrs: {
+        keep: 'keep',
+        overwrite: 'original'
+      }
     })
 
     var original = this.md.render('[link](https://google.com)')
@@ -79,8 +107,10 @@ describe('markdown-it-link-attributes', function () {
     expect(original).to.contain('<a href="https://google.com" keep="keep" overwrite="original">link</a>')
 
     this.md.use(linkAttributes, {
-      overwrite: 'new',
-      newattr: 'new'
+      attrs: {
+        overwrite: 'new',
+        newattr: 'new'
+      }
     })
 
     var result = this.md.render('[link](https://google.com)')
@@ -92,7 +122,11 @@ describe('markdown-it-link-attributes', function () {
     var md = new MarkdownIt({
       linkify: true
     })
-    md.use(linkAttributes, { target: '_blank' })
+    md.use(linkAttributes, {
+      attrs: {
+        target: '_blank'
+      }
+    })
 
     var result = md.render('foo https://google.com bar')
 
