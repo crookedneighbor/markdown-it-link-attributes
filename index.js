@@ -11,7 +11,7 @@ function findFirstMatchingConfig (link, configs) {
 
     // if there is no pattern, config matches for all links
     // otherwise, only return config if href matches the pattern set
-    if (!config.pattern || config.pattern.test(href)) {
+    if (!config.pattern || new RegExp(config.pattern).test(href)) {
       return config
     }
   }
