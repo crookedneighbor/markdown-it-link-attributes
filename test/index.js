@@ -55,6 +55,21 @@ describe('markdown-it-link-attributes', function () {
     expect(result).to.contain('<a href="#anchor">link</a>')
   })
 
+  it('takes pattern option and only apply attrs if pattern matched and pattern is String', function () {
+    this.md.use(linkAttributes, {
+      pattern: '^https',
+      attrs: {
+        target: '_blank'
+      }
+    })
+
+    var result = this.md.render('[link](https://google.com)')
+    expect(result).to.contain('<a href="https://google.com" target="_blank">link</a>')
+
+    result = this.md.render('[link](#anchor)')
+    expect(result).to.contain('<a href="#anchor">link</a>')
+  })
+  
   it('allows multiple rules', function () {
     this.md.use(linkAttributes, [{
       pattern: /^https:/,
