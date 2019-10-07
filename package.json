@@ -26,16 +26,16 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-link-attributes",
   "devDependencies": {
-    "browserify": "^14.4.0",
+    "browserify": "^16.5.0",
     "chai": "^4.1.2",
     "chalk": "^2.1.0",
     "check-ecmascript-version-compatibility": "^0.1.1",
-    "mocha": "^3.0.2",
-    "rimraf": "^2.5.2",
-    "sinon": "^3.2.1",
-    "sinon-chai": "^2.8.0",
-    "snazzy": "^7.0.0",
-    "standard": "^10.0.3",
+    "mocha": "^6.2.1",
+    "rimraf": "^3.0.0",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0",
+    "snazzy": "^8.0.0",
+    "standard": "^14.3.1",
     "uglify-js": "^3.1.0"
   },
   "standard": {

@@ -135,7 +135,7 @@ _Differences in browser._ If you load script directly into the page, without a p
 
 ## Testing
 
-This plugin is tested against markdown-it @ 6,7,8 and latest
+This plugin is tested against markdown-it @ 9, 10 and latest
 
 ## License
 
