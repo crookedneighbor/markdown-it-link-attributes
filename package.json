@@ -8,7 +8,8 @@
     "minify": "uglifyjs dist/markdown-it-link-attributes.js > dist/markdown-it-link-attributes.min.js",
     "lint": "standard | snazzy",
     "pretest": "npm run lint && npm run build",
-    "test": "mocha"
+    "test": "mocha",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
