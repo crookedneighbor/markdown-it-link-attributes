@@ -9,6 +9,17 @@ function findFirstMatchingConfig (link, configs) {
   for (i = 0; i < configs.length; ++i) {
     config = configs[i]
 
+    // If there is a matcher function defined then call it
+    // Matcher Function should return a bool indicating it matched (true) or not (false)
+    if (config.function && typeof config.function === 'function') {
+      if (config.function(href, config)) {
+        return config
+      } else {
+        return
+      }
+    }
+
+    // if no function defined, will revert to RegExp
     // if there is no pattern, config matches for all links
     // otherwise, only return config if href matches the pattern set
     if (!config.pattern || new RegExp(config.pattern).test(href)) {

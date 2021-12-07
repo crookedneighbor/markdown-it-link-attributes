@@ -55,6 +55,40 @@ describe('markdown-it-link-attributes', function () {
     expect(result).to.contain('<a href="#anchor">link</a>')
   })
 
+  it('takes function option and applies attrs if function matched', function () {
+    this.md.use(linkAttributes, {
+      function: (href, config) => { return href.includes('google.com') },
+      attrs: {
+        target: '_blank',
+        rel: 'noopener'
+      }
+    })
+
+    var result = this.md.render('[link](https://google.com)')
+    expect(result).to.contain('<a href="https://google.com" target="_blank" rel="noopener">link</a>')
+
+    result = this.md.render('[link](#anchor)')
+    expect(result).to.contain('<a href="#anchor">link</a>')
+  })
+
+  it('only function is tested if function and pattern defined', function () {
+    this.md.use(linkAttributes, {
+      function: (href, config) => { return href.startsWith('https:') && config.random },
+      random: true,
+      pattern: /^http?:\/\//,
+      attrs: {
+        target: '_blank',
+        rel: 'noopener'
+      }
+    })
+
+    var result = this.md.render('[link](https://google.com)')
+    expect(result).to.contain('<a href="https://google.com" target="_blank" rel="noopener">link</a>')
+
+    result = this.md.render('[link](http://google.com)')
+    expect(result).to.contain('<a href="http://google.com">link</a>')
+  })
+
   it('allows pattern passed to be a string representation of a RegExp', function () {
     this.md.use(linkAttributes, {
       pattern: '^https',

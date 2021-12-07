@@ -49,29 +49,9 @@ var html = md.render('foo https://google.com bar')
 html // <p>foo <a href="https://google.com" target="_blank" rel="noopener">https://google.com</a> bar</p>
 ```
 
-### Pattern
-
-You can also specify a pattern property. The link's href property will be checked against the pattern RegExp provided and only apply the attributes if it matches the pattern.
-
-```js
-md.use(mila, {
-  pattern: /^https:/,
-  attrs: {
-    target: '_blank',
-    rel: 'noopener'
-  }
-})
-
-var matchingResult = md.render('[Matching Example](https://example.com')
-var ignoredResult = md.render('[Not Matching Example](http://example.com')
-
-matchingResult // <a href="https://example.com" target="_blank" rel="noopener">Matching Example</a>
-ignoredResult // <a href="http://example.com">Not Matching Example</a>
-```
-
 ### Applying classes
 
-You can either apply a `class` to a link by using a `class` or a `className` property. Either one will work, but use only one, not both.
+You can apply a `class` to a link by using a `class` or a `className` property. Either one will work, but use only one, not both.
 
 ```js
 md.use(mila, {
@@ -86,6 +66,42 @@ md.use(mila, {
     className: 'my-class'
   }
 })
+```
+
+### Conditionally apply attributes
+
+You can choose to test a links 'href' against either a rege pattern or a custom function. If a pattern or function are specified, then only if the relevant option returns true will the attributes be applied. You should only define a pattern OR a function, not both. If both a pattern AND function are defined, only the function will be tested (pattern will be ignored).
+
+To use a RegExp
+
+```js
+
+md.use(mila, {
+  pattern: /^https:/,
+  attrs: {
+    target: '_blank',
+    rel: 'noopener'
+  }
+})
+```
+
+To use a function
+
+```js
+
+md.use(mila, {
+  function: (href, config) => { return href.startsWith('https:') },
+  attrs: {
+    target: '_blank',
+    rel: 'noopener'
+  }
+})
+
+var matchingResult = md.render('[Matching Example](https://example.com')
+var ignoredResult = md.render('[Not Matching Example](http://example.com')
+
+matchingResult // <a href="https://example.com" target="_blank" rel="noopener">Matching Example</a>
+ignoredResult // <a href="http://example.com">Not Matching Example</a>
 ```
 
 ### Multiple Configurations
@@ -121,7 +137,8 @@ blueResult // <a href="relative/link/with/blue/in/the/name" class="link-that-con
 
 If multiple patterns match, the first configuration to match will be used.
 
-```
+```js
+
 // This matches both the "starts with http or https" rule and the "contains the word blue" rule.
 // Since the http/https rule was defined first, that is the configuration that is used.
 var result = md.render('[external](https://example.com/blue')
@@ -132,7 +149,7 @@ result // <a href="https://example.com/blue" class="external-link">external</a>
 ## Usage in the browser
 
 _Differences in browser._ If you load script directly into the page, without a package system, the module will add itself globally as `window.markdownitLinkAttributes`.
-You need to load `dist/markdown-it-link-attributes.min.js`, if you don't use a build system. 
+You need to load `dist/markdown-it-link-attributes.min.js`, if you don't use a build system.
 
 ## Testing
 
