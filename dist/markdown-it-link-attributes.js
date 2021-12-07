@@ -10,11 +10,19 @@ function findFirstMatchingConfig (link, configs) {
   for (i = 0; i < configs.length; ++i) {
     config = configs[i]
 
-    // if there is no pattern, config matches for all links
-    // otherwise, only return config if href matches the pattern set
-    if (!config.pattern || new RegExp(config.pattern).test(href)) {
-      return config
+    // If there is a matcher function defined then call it
+    // Matcher Function should return a boolean indicating
+    // whether or not it matched. If it matched, use that
+    // configuration, otherwise, try the next one.
+    if (typeof config.matcher === 'function') {
+      if (config.matcher(href, config)) {
+        return config
+      } else {
+        continue
+      }
     }
+
+    return config
   }
 }
 

@@ -124,6 +124,17 @@
             className: 'other-link'
           }
         }]
+      },{
+        id: 'attributes-plugin-example-function',
+        title: 'Plugin that uses a custom function',
+        function: (href, config) => { return href.startsWith('https:') && config.is_true },
+        is_true: true,
+        source: 'a [link](https://google.com) with `target="_blank"` added to it. a [link](http://google.com) without `target="_blank"` added to it',
+        config: {
+          attrs: {
+            target: '_blank'
+          }
+        }
       }].forEach(renderExample)
     </script>
   </body>

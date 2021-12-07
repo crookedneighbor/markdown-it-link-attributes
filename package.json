@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-link-attributes",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A markdown-it plugin to configure the attributes for links",
   "main": "index.js",
   "scripts": {
