@@ -9,7 +9,7 @@
     "minify": "uglifyjs dist/markdown-it-link-attributes.js > dist/markdown-it-link-attributes.min.js",
     "lint": "eslint",
     "pretest": "npm run lint && npm run build",
-    "test": "mocha",
+    "test": "jest",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -29,17 +29,14 @@
   "homepage": "https://github.com/crookedneighbor/markdown-it-link-attributes",
   "devDependencies": {
     "browserify": "^16.5.1",
-    "chai": "^4.1.2",
     "chalk": "^4.1.0",
     "check-ecmascript-version-compatibility": "^0.1.1",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.4.5",
     "markdown-it": "latest",
-    "mocha": "^8.1.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "sinon": "^9.0.2",
-    "sinon-chai": "^3.5.0",
     "uglify-js": "^3.10.1"
   },
   "eslint": {

@@ -12,9 +12,6 @@ describe("ECMAScript version", function () {
       "markdown-it-link-attributes.js"
     );
 
-    this.slow(1000);
-    this.timeout(2000);
-
     checkFile(jsPath, done);
   });
 });
