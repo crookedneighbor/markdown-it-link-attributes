@@ -153,7 +153,7 @@ You need to load `dist/markdown-it-link-attributes.min.js`, if you don't use a b
 
 ## Testing
 
-This plugin is tested against markdown-it @ 9, 10 and latest
+This plugin is tested against the latest version of markdown-it
 
 ## License
 
