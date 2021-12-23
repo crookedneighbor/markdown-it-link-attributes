@@ -38,23 +38,23 @@
         var jsCodeBlob = ''
 
         if (config) {
+          if (!Array.isArray(config)) {
+            config = [config]
+          }
           var clonedConfig = JSON.parse(JSON.stringify(config))
 
-          if (config.pattern) {
-            clonedConfig.pattern = config.pattern.toString()
-          } else if (Array.isArray(config)) {
-            config.forEach(function (c, index) {
-              if (c.pattern) {
-                clonedConfig[index].pattern = c.pattern.toString().replace(/\\\//g, '&bsol;&sol;')
-              }
-            })
-          }
+
+          config.forEach(function (c, index) {
+            if (c.matcher) {
+              clonedConfig[index].matcher = c.matcher.toString()
+            }
+          })
 
         jsCodeBlob = 'md.use(markdownitLinkAttributes, ' +
           JSON.stringify(clonedConfig, null, 2)
             .replace(/"(\w*)":/g, '$1:')
             .replace(/"/g, "'")
-            .replace(/pattern: '(.*)',/g, 'pattern: $1') +
+            .replace(/matcher: '(.*)',?/g, 'matcher: $1') +
           ')\n'
         }
 
@@ -113,7 +113,7 @@
         title: 'Plugin With Multiple Configurations',
         source: 'an external [link](https://google.com)|and an other [link](example)',
         config: [{
-          pattern: /^https?:\/\//,
+          matcher: function (href) { return href.startsWith('https://'); },
           attrs: {
             className: 'external-link',
             target: '_blank',
@@ -124,17 +124,6 @@
             className: 'other-link'
           }
         }]
-      },{
-        id: 'attributes-plugin-example-function',
-        title: 'Plugin that uses a custom function',
-        function: (href, config) => { return href.startsWith('https:') && config.is_true },
-        is_true: true,
-        source: 'a [link](https://google.com) with `target="_blank"` added to it. a [link](http://google.com) without `target="_blank"` added to it',
-        config: {
-          attrs: {
-            target: '_blank'
-          }
-        }
       }].forEach(renderExample)
     </script>
   </body>
