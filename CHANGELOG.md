@@ -1,4 +1,4 @@
-# 5.0.0
+# 4.0.0
 
 * Add `matcher` function configuration
 
