@@ -1,9 +1,9 @@
 # 4.0.0
 
-* Add `matcher` function configuration
+- Add `matcher` function configuration
 
 _Breaking Changes_
 
-* Support latest major version of Markdown-it (currently 12)
-* Drop Node < v14
-* Drop `pattern` configuration
+- Support latest major version of Markdown-it (currently 12)
+- Drop Node < v14
+- Drop `pattern` configuration

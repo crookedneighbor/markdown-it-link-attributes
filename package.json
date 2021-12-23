@@ -4,9 +4,10 @@
   "description": "A markdown-it plugin to configure the attributes for links",
   "main": "index.js",
   "scripts": {
+    "prebuild": "prettier --write .",
     "build": "node tasks/build.js && npm run minify",
     "minify": "uglifyjs dist/markdown-it-link-attributes.js > dist/markdown-it-link-attributes.min.js",
-    "lint": "standard | snazzy",
+    "lint": "eslint",
     "pretest": "npm run lint && npm run build",
     "test": "mocha",
     "prepublishOnly": "npm run build"
@@ -31,30 +32,17 @@
     "chai": "^4.1.2",
     "chalk": "^4.1.0",
     "check-ecmascript-version-compatibility": "^0.1.1",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
     "markdown-it": "latest",
     "mocha": "^8.1.0",
+    "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0",
-    "snazzy": "^8.0.0",
-    "standard": "^14.3.4",
     "uglify-js": "^3.10.1"
   },
-  "standard": {
-    "globals": [
-      "after",
-      "afterEach",
-      "before",
-      "beforeEach",
-      "context",
-      "describe",
-      "expect",
-      "it",
-      "sandbox",
-      "xdescribe",
-      "xcontext",
-      "xit"
-    ],
+  "eslint": {
     "ignore": [
       "dist/"
     ]

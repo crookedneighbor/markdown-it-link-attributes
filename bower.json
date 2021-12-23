@@ -2,23 +2,10 @@
   "name": "markdown-it-link-attributes",
   "description": "A markdown-it plugin to add links to images",
   "main": "dist/markdown-it-link-attributes.js",
-  "authors": [
-    "Blade Barringer <blade@crookedneighbor.com>"
-  ],
+  "authors": ["Blade Barringer <blade@crookedneighbor.com>"],
   "license": "MIT",
-  "keywords": [
-    "markdown-it",
-    "markdown-it-plugin",
-    "markdown",
-    "commonmark"
-  ],
+  "keywords": ["markdown-it", "markdown-it-plugin", "markdown", "commonmark"],
   "homepage": "https://github.com/crookedneighbor/markdown-it-link-attributes",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "tasks",
-    "examples",
-    "test"
-  ],
+  "ignore": ["**/.*", "node_modules", "tasks", "examples", "test"],
   "version": "2.0.0"
 }
