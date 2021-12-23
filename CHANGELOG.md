@@ -7,3 +7,4 @@ _Breaking Changes_
 - Support latest major version of Markdown-it (currently 12)
 - Drop Node < v14
 - Drop `pattern` configuration
+- Drop Bower support
