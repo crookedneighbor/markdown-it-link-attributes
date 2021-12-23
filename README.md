@@ -132,11 +132,11 @@ result // <a href="https://example.com/blue" class="external-link">external</a>
 ## Usage in the browser
 
 _Differences in browser._ If you load script directly into the page, without a package system, the module will add itself globally as `window.markdownitLinkAttributes`.
-You need to load `dist/markdown-it-link-attributes.min.js`, if you don't use a build system. 
+You need to load `dist/markdown-it-link-attributes.min.js`, if you don't use a build system.
 
 ## Testing
 
-This plugin is tested against markdown-it @ 9, 10 and latest
+This plugin is tested against the latest version of markdown-it
 
 ## License
 
