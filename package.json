@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-link-attributes",
   "devDependencies": {
-    "browserify": "^16.5.1",
+    "browserify": "^17.0.0",
     "chalk": "^4.1.0",
     "check-ecmascript-version-compatibility": "^0.1.1",
     "eslint": "^8.5.0",
@@ -37,7 +37,7 @@
     "markdown-it": "latest",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "uglify-js": "^3.10.1"
+    "uglify-js": "^3.14.5"
   },
   "eslint": {
     "ignore": [
