@@ -92,24 +92,30 @@ ignoredResult; // <a href="http://example.com">Not Matching Example</a>
 
 ### Multiple Configurations
 
-Alternatively, you can pass an Array of configurations. The first pattern to match will be applied to the link.
+Alternatively, you can pass an Array of configurations. The first matcher function to return true will be applied to the link.
 
 ```js
 md.use(mila, [
   {
-    pattern: /^https?:\/\//,
+    matcher(href) {
+      return href.match(/^https?:\/\//);
+    },
     attrs: {
       class: "external-link",
     },
   },
   {
-    pattern: /^\//,
+    matcher(href) {
+      return href.startsWith("/");
+    },
     attrs: {
       class: "absolute-link",
     },
   },
   {
-    pattern: /blue/,
+    matcher(href) {
+      return href.startsWith("/blue/");
+    },
     attrs: {
       class: "link-that-contains-the-word-blue",
     },
@@ -125,7 +131,7 @@ absoluteResult; // <a href="/some-page" class="absolute-link">absolute</a>
 blueResult; // <a href="relative/link/with/blue/in/the/name" class="link-that-contains-the-word-blue">blue</a>
 ```
 
-If multiple patterns match, the first configuration to match will be used.
+If multiple matcher functions return true, the first configuration to match will be used.
 
 ```js
 // This matches both the "starts with http or https" rule and the "contains the word blue" rule.
