@@ -1,3 +1,7 @@
+# 4.0.1
+
+- Fix documentation error in README
+
 # 4.0.0
 
 - Add `matcher` function configuration
