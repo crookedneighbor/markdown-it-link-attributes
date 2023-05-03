@@ -1,3 +1,9 @@
+# unreleased
+
+_Breaking Changes_
+- Drop support for ES5 browsers
+- Drop support for Node < 18
+
 # 4.0.1
 
 - Fix documentation error in README
