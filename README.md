@@ -4,11 +4,8 @@
 
 ## Install
 
-node.js, browser:
-
 ```bash
 npm install markdown-it-link-attributes --save
-bower install markdown-it-link-attributes --save
 ```
 
 ## Use
@@ -18,8 +15,8 @@ bower install markdown-it-link-attributes --save
 You can pass an object with an attrs property. Each link parsed with this config will have the passed attributes.
 
 ```js
-var md = require("markdown-it")();
-var mila = require("markdown-it-link-attributes");
+const md = require("markdown-it")();
+const mila = require("markdown-it-link-attributes");
 
 md.use(mila, {
   attrs: {
@@ -36,7 +33,7 @@ result; // <a href="https://example.com" target="_blank" rel="noopener">Example<
 If the `linkify` option is set to `true` on `markdown-it`, then the attributes will be applied to plain links as well.
 
 ```js
-var md = require("markdown-it")({
+const md = require("markdown-it")({
   linkify: true,
 });
 
@@ -83,8 +80,8 @@ md.use(mila, {
   },
 });
 
-var matchingResult = md.render("[Matching Example](https://example.com");
-var ignoredResult = md.render("[Not Matching Example](http://example.com");
+const matchingResult = md.render("[Matching Example](https://example.com");
+const ignoredResult = md.render("[Not Matching Example](http://example.com");
 
 matchingResult; // <a href="https://example.com" target="_blank" rel="noopener">Matching Example</a>
 ignoredResult; // <a href="http://example.com">Not Matching Example</a>
