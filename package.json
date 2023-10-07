@@ -25,11 +25,11 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-link-attributes",
   "devDependencies": {
-    "eslint": "^8.39.0",
-    "eslint-config-prettier": "^8.8.0",
-    "jest": "^29.5.0",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "jest": "^29.7.0",
     "markdown-it": "latest",
-    "prettier": "^2.8.8"
+    "prettier": "^3.0.3"
   },
   "eslint": {
     "ignore": [

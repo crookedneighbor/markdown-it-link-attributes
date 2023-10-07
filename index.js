@@ -78,7 +78,7 @@ markdownitLinkAttributes.defaultRender = function (
   idx,
   options,
   env,
-  self
+  self,
 ) {
   return self.renderToken(tokens, idx, options);
 };

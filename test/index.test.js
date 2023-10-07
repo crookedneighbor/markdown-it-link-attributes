@@ -20,7 +20,7 @@ describe("markdown-it-link-attributes", function () {
     var result = md.render("[link](https://google.com)");
 
     expect(result).toMatch(
-      '<a href="https://google.com" target="_blank">link</a>'
+      '<a href="https://google.com" target="_blank">link</a>',
     );
   });
 
@@ -36,7 +36,7 @@ describe("markdown-it-link-attributes", function () {
     var result = md.render("[link](https://google.com)");
 
     expect(result).toMatch(
-      '<a href="https://google.com" target="_blank" rel="noopener" foo="bar">link</a>'
+      '<a href="https://google.com" target="_blank" rel="noopener" foo="bar">link</a>',
     );
   });
 
@@ -53,7 +53,7 @@ describe("markdown-it-link-attributes", function () {
 
     var result = md.render("[link](https://google.com)");
     expect(result).toMatch(
-      '<a href="https://google.com" target="_blank" rel="noopener">link</a>'
+      '<a href="https://google.com" target="_blank" rel="noopener">link</a>',
     );
 
     result = md.render("[link](#anchor)");
@@ -87,7 +87,7 @@ describe("markdown-it-link-attributes", function () {
 
     var result = md.render("[Google](https://www.google.com)");
     expect(result).toMatch(
-      '<a href="https://www.google.com" class="has-text-uppercase">Google</a>'
+      '<a href="https://www.google.com" class="has-text-uppercase">Google</a>',
     );
 
     result = md.render("[Go to top](#top)");
@@ -127,22 +127,22 @@ describe("markdown-it-link-attributes", function () {
 
     var result = md.render("[Google](https://www.google.com)");
     expect(result).toMatch(
-      '<a href="https://www.google.com" class="contains-g">Google</a>'
+      '<a href="https://www.google.com" class="contains-g">Google</a>',
     );
 
     result = md.render("[Not Google](https://www.example.com)");
     expect(result).toMatch(
-      '<a href="https://www.example.com" class="starts-with-https">Not Google</a>'
+      '<a href="https://www.example.com" class="starts-with-https">Not Google</a>',
     );
 
     result = md.render("[Not Google and not secure](http://www.example.com)");
     expect(result).toMatch(
-      '<a href="http://www.example.com" class="starts-with-http">Not Google and not secure</a>'
+      '<a href="http://www.example.com" class="starts-with-http">Not Google and not secure</a>',
     );
 
     result = md.render("[Not Google and not secure](http://www.example.com/g)");
     expect(result).toMatch(
-      '<a href="http://www.example.com/g" class="contains-g">Not Google and not secure</a>'
+      '<a href="http://www.example.com/g" class="contains-g">Not Google and not secure</a>',
     );
   });
 
@@ -183,22 +183,22 @@ describe("markdown-it-link-attributes", function () {
 
     var result = md.render("[Google](https://www.google.com)");
     expect(result).toMatch(
-      '<a href="https://www.google.com" class="always-use-this">Google</a>'
+      '<a href="https://www.google.com" class="always-use-this">Google</a>',
     );
 
     result = md.render("[Not Google](https://www.example.com)");
     expect(result).toMatch(
-      '<a href="https://www.example.com" class="always-use-this">Not Google</a>'
+      '<a href="https://www.example.com" class="always-use-this">Not Google</a>',
     );
 
     result = md.render("[Not Google and not secure](http://www.example.com)");
     expect(result).toMatch(
-      '<a href="http://www.example.com" class="always-use-this">Not Google and not secure</a>'
+      '<a href="http://www.example.com" class="always-use-this">Not Google and not secure</a>',
     );
 
     result = md.render("[Not Google and not secure](http://www.example.com/g)");
     expect(result).toMatch(
-      '<a href="http://www.example.com/g" class="always-use-this">Not Google and not secure</a>'
+      '<a href="http://www.example.com/g" class="always-use-this">Not Google and not secure</a>',
     );
   });
 
@@ -225,7 +225,7 @@ describe("markdown-it-link-attributes", function () {
     var original = md.render("[link](https://google.com)");
 
     expect(original).toMatch(
-      '<a href="https://google.com" keep="keep" overwrite="original">link</a>'
+      '<a href="https://google.com" keep="keep" overwrite="original">link</a>',
     );
 
     md.use(linkAttributes, {
@@ -238,7 +238,7 @@ describe("markdown-it-link-attributes", function () {
     var result = md.render("[link](https://google.com)");
 
     expect(result).toMatch(
-      '<a href="https://google.com" overwrite="original" newattr="new" keep="keep">link</a>'
+      '<a href="https://google.com" overwrite="original" newattr="new" keep="keep">link</a>',
     );
   });
 
@@ -255,7 +255,7 @@ describe("markdown-it-link-attributes", function () {
     var result = md.render("foo https://google.com bar");
 
     expect(result).toMatch(
-      '<a href="https://google.com" target="_blank">https://google.com</a>'
+      '<a href="https://google.com" target="_blank">https://google.com</a>',
     );
   });
 
